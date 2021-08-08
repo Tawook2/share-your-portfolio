@@ -11,6 +11,18 @@
 - 개발 환경 : Windows 10
 - 사용 도구 : Eclipse, Visual Studio Code
 - 사용 기술 : 
+  - Frontend
+    - Vue.js
+    - HTML/CSS/Javascript
+  - Backend
+    - Java 8
+    - Spring
+  - Database
+    - MySQL
+  - DevOps
+    - Git
+    - GitHub
+    - Maven
 
 # 프로젝트 소개
 
@@ -19,6 +31,14 @@
 ***FLEXHIBIT***의 어원은 FLEX + EXHITBIT 의 합성어로 '자신의 전시물을 뽐내다' 라는 아이디어로 제작되었습니다.
 
 # 자세한 개발 내용
+
+- 제안 및 기획
+
+- 설계
+
+- 개발
+
+- 마무리
 
 
 
