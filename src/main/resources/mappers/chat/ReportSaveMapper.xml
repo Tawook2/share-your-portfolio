@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.fleamarket.domain.chat.mapper.ReportSaveMapper">
+
+	<insert id="saveReport">
+		INSERT INTO
+			reports(report_id, reported_id, report_type, report_detail)
+		VALUES
+			(#{reportId}, #{reportedId}, #{reportType}, #{reportDetail})
+	</insert>
+
+</mapper>

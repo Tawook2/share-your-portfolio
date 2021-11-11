@@ -13,5 +13,14 @@
 			id = #{id}
 	</select>
 	
+	<select id="findAccountByName" resultType="Account">
+		SELECT
+			*
+		FROM
+			accounts
+		WHERE
+			name = #{name}
+	</select>
+	
 </mapper>
 

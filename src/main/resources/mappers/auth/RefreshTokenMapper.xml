@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.api.domain.auth.mapper.RefreshTokenMapper">
+	
+	<insert id="save">
+		INSERT INTO refresh_tokens(
+			account_id, token, expired_date
+		) VALUES (
+			#{accountId}, #{token}, #{expiredDate}
+		) ON DUPLICATE KEY UPDATE
+			account_id = #{accountId},
+			token = #{token},
+			expired_date = #{expiredDate}
+	</insert>
+	
+	<select id="findRefreshTokenByAccountId" resultType="RefreshToken">
+		SELECT
+			*
+		FROM
+			refresh_tokens
+		WHERE
+			account_id = #{accountId}
+	</select>
+	
+	<delete id="deleteRefreshTokenByAccountId">
+		DELETE FROM
+			refresh_tokens
+		WHERE
+			account_id = #{accountId}
+	</delete>
+	
+</mapper>
+

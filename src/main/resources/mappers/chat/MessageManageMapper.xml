@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.api.domain.chat.mapper.MessageManageMapper">
+
+	<insert id="saveMessage" useGeneratedKeys="true"
+    keyProperty="messageNo">
+		INSERT INTO
+			messages(sender_id, receiver_id, content)
+		VALUES
+			(#{senderId}, #{receiverId}, #{content})
+	</insert>
+	
+	<select id="recallChat" resultType="MessageModel">
+		SELECT * 
+		FROM messages 
+		WHERE sender_id = #{senderId} AND receiver_id = #{receiverId} OR sender_id = #{receiverId} AND receiver_id = #{senderId}
+		ORDER BY message_no ASC
+	</select>
+	
+	<select id="checkTime" resultType="java.util.Date">
+		SELECT create_date
+		FROM messages
+		WHERE message_no = #{messageNo}
+
+	</select>
+	
+	<select id="bringUserList" resultType="UserList">
+		SELECT  t.user AS "id", t.content AS "content", accounts.name AS "name", t.create_date AS "create_date" FROM
+			(SELECT content, create_date, 
+					CASE WHEN messages.sender_id = #{userId} THEN messages.receiver_id 
+						 WHEN messages.receiver_id = #{userId} THEN messages.sender_id 
+			             ELSE 0
+			    	END AS "user",
+			    	ROW_NUMBER() OVER(ORDER BY create_date DESC) rn
+	    	FROM messages) t, accounts
+	    WHERE t.user != #{userId} AND t.user != 0 AND t.user = accounts.id
+	    GROUP BY t.user
+	    ORDER BY t.create_date DESC;
+	</select>
+	
+</mapper>

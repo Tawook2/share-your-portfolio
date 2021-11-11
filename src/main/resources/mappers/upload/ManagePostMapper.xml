@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.api.domain.upload.mapper.ManagePostMapper">
+
+	<insert id="uploadFiles" useGeneratedKeys="true"
+    keyProperty="fileNo">
+		INSERT INTO
+			files(file_category, uploader_id, uuid, original_file_name, saved_file_name, upload_path, file_size)
+		VALUES
+			(#{fileCategory}, #{uploaderId}, #{uuid}, #{originalFileName}, #{savedFileName}, #{uploadPath}, #{fileSize})
+	</insert>
+	
+	<insert id="savePosts">
+		INSERT INTO
+			posts(file_no, writer_id, title, content, category, num_of_page )
+		VALUES
+			(#{fileNo}, #{writerId}, #{title}, #{content}, #{category}, #{numOfPage} )
+	</insert>
+	
+	<select id="bringPostList" resultType="Post">
+		SELECT 
+			p.*, a.name as writer
+		FROM 
+			posts p
+		JOIN 
+			accounts a ON a.id = p.writer_id 
+		ORDER BY p.write_date DESC
+	</select>
+	
+	<select id="searchFileNo" resultType="Integer">
+		SELECT file_no
+		FROM posts
+		WHERE writer_id = #{writerId} AND id = #{id}
+	</select>
+	
+	<select id="searchFilePath" resultType="String">	
+		SELECT upload_path
+		FROM files
+		WHERE file_no = #{fileNo}
+	</select>
+	
+	<select id="findById" resultType="Post">
+		SELECT 
+			p.*, a.name as writer
+		FROM 
+			posts p
+		JOIN 
+			accounts a ON a.id = p.writer_id 
+		WHERE 
+			p.id = #{id};
+	</select>
+	
+</mapper>

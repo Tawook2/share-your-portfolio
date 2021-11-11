@@ -17,5 +17,10 @@ public class AccountFindServiceImpl implements AccountFindService {
 	public Account findAccountById(int id) {
 		return mapper.findAccountById(id);
 	}
+
+	@Override
+	public Account findAccountByName(String name) {
+		return mapper.findAccountByName(name);
+	}
 	
 }

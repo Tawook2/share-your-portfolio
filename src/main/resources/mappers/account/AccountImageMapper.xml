@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.api.domain.account.mapper.AccountImageMapper">
+
+	<select id="findAccountImagePath" resultType="String">
+		SELECT
+			path
+		FROM
+			account_images
+		WHERE
+			account_id = #{accountId}
+	</select>
+	
+	<insert id="save">
+		INSERT INTO
+			account_images(account_id, path)
+		VALUES
+			(#{accountId}, #{path})
+		ON DUPLICATE KEY UPDATE
+			path = #{path}
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM
+			account_images
+		WHERE
+			account_id = #{accountId}
+	</delete>
+	
+</mapper>
+
